@@ -1,4 +1,5 @@
 const formval = document.getElementById("form");
+const mainbox = document.documentElement;
 const electron = require("electron");
 const ipc = electron.ipcRenderer;
 var fs = require('fs');
@@ -16,6 +17,7 @@ function firestarter() {
                 window.search = false;
                 window.catTF = true;
                 ipc.send("init", window.search );
+                document.body.style.backgroundImage = 'linear-gradient(to bottom right, #ee9ca7, #ffdde1)';
             }
             else if (window.search) {
                 ipc.send("init", window.search );
@@ -32,6 +34,7 @@ function firestarter() {
                 window.amtTF = false;
                 window.search = true;
                 moneytracker();
+                document.body.style.backgroundImage = 'none';
             }
             ipc.send("init", window.search );
             formclear()
@@ -42,10 +45,12 @@ function formclear() {
     formval.value = "";
 }
 function moneytracker() {
-    var d = new Date();
-    var year = d.getFullYear();
-    var month = d.toLocaleString('default', {month: 'short'});
-    fs.appendFile(`${month}${year}.csv`, `${window.catagory},$${window.amount}\n` ,function(error){
+    let d = new Date();
+    let year = d.getFullYear();
+    let monthlong = d.toLocaleString('default', {month: 'long'});
+    let monthshort = d.toLocaleString('default', {month: 'short'});
+    let date = d.getDate();
+    fs.appendFile(`${monthlong}${year}.csv`, `${monthshort} ${date} ${year},${window.catagory},$${window.amount}\n` ,function(error){
         if (error) throw error;
         console.log('saved');
     })

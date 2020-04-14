@@ -6,6 +6,9 @@
     cursor: default;
 }
 .mainbox {
+    opacity: 0;
+    z-index: -1;
+    height: 100%;
     width: 80%;
     margin: auto;
 }
@@ -26,6 +29,7 @@
     
 }
 .formbar {
+    background: rgba(204, 204, 204, 0);
     font-weight: 100;
     color: black;
     text-align: center;
